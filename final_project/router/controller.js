@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-const url = 'http://localhost:5000/';
+const url = 'http://localhost:5000';
 
 // Task 10: Get all books – Using async callback function – 2 Points
 const getAllBooks = async () => {
@@ -15,7 +15,7 @@ const getAllBooks = async () => {
 // Task 11: Search by ISBN – Using Promises – 2 Points
 const searchByISBN = async (isbn) => {
   try {
-    const response = await axios.get(`${url}/${isbn}`);
+    const response = await axios.get(`${url}/isbn/${isbn}`);
     console.log(response.data);
   } catch (error) {
     console.log(error);
@@ -25,7 +25,7 @@ const searchByISBN = async (isbn) => {
 // Task 12: Search by Author – 2 Points
 const searchByAuthor = async (author) => {
   try {
-    const response = await axios.get(`${url}/${author}`);
+    const response = await axios.get(`${url}/author/${author}`);
     console.log(response.data);
   } catch (error) {
     console.log(error);
@@ -35,9 +35,22 @@ const searchByAuthor = async (author) => {
 // Task 13: Search by Title - 2 Points
 const searchByTitle = async (author) => {
   try {
-    const response = await axios.get(`${url}/${title}`);
+    const response = await axios.get(`${url}/title/${author}`);
     console.log(response.data);
   } catch (error) {
     console.log(error);
   }
 };
+
+
+// Task 10: Get all books – Using async callback function – 2 Points
+getAllBooks();
+
+// Task 11: Search by ISBN – Using Promises – 2 Points
+searchByISBN(5);
+
+// Task 12: Search by Author – 2 Points
+searchByAuthor('Unknown');
+
+// // Task 13: Search by Title - 2 Points
+searchByTitle('Njál\'s Saga');
