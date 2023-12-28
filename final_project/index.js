@@ -10,11 +10,25 @@ app.use(express.json());
 
 app.use("/customer",session({secret:"fingerprint_customer",resave: true, saveUninitialized: true}))
 
-app.use("/customer/auth/*", function auth(req,res,next){
-//Write the authenication mechanism here
+app.use("/customer/auth/*", function auth(req, res, next) {
+    // Check if the user is authenticated based on the session
+    if (req.session.authenticated) {
+        next();
+    } else {
+        
+        try {
+            jwt.verify(req.cookies.userToken, 'helloworld');
+            req.session.authenticated = true;
+            next();
+        }
+        catch (err) {
+            return res.status(401).json({message: "Unauthorized"});
+        }
+
+    }
 });
  
-const PORT =5000;
+const PORT = 5000;
 
 app.use("/customer", customer_routes);
 app.use("/", genl_routes);
